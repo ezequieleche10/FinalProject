@@ -2,5 +2,5 @@ package Negocio;
 
 public class TipoUsuario {
 
-	int val=9;
+	int val=12;
 }
