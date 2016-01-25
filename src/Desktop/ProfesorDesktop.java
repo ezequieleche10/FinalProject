@@ -60,11 +60,12 @@ public class ProfesorDesktop extends JFrame {
 	 * Create the frame.
 	 */
 	public ProfesorDesktop(Controlador cont) {
+		setResizable(false);
 	
 		setTitle("Profesores");
 		//al cancelar o cerrar con la x , solo se cierra el JFrame
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 690, 297);
+		setBounds(100, 100, 600, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -73,27 +74,28 @@ public class ProfesorDesktop extends JFrame {
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Datos del profesor", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{117, 116, 90, 127, 76, 81, 0};
-		gbl_panel.rowHeights = new int[]{0, 14, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_panel.columnWeights = new double[]{0.1, 0.1, 0.1, 1.0, 0.3, 0.3, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.5, 0.5, Double.MIN_VALUE};
+		gbl_panel.columnWidths = new int[]{98, 79, 88, 87, 90, 81, 0};
+		gbl_panel.rowHeights = new int[]{0, 14, 24, 0, 23, 0, 0, 0};
+		gbl_panel.columnWeights = new double[]{0.1, 0.0, 0.1, 1.0, 0.3, 0.3, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		contentPane.add(panel);
 		
 		lblNombre = new JLabel("Nombre:");
 		GridBagConstraints gbc_lblNombre = new GridBagConstraints();
 		gbc_lblNombre.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNombre.anchor = GridBagConstraints.NORTHEAST;
+		gbc_lblNombre.anchor = GridBagConstraints.EAST;
 		gbc_lblNombre.gridx = 0;
-		gbc_lblNombre.gridy = 2;
+		gbc_lblNombre.gridy = 1;
 		panel.add(lblNombre, gbc_lblNombre);
 		
 		txtNombre = new JTextField();
 		GridBagConstraints gbc_txtNombre = new GridBagConstraints();
+		gbc_txtNombre.gridwidth = 2;
 		gbc_txtNombre.insets = new Insets(0, 0, 5, 5);
 		gbc_txtNombre.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtNombre.gridx = 1;
-		gbc_txtNombre.gridy = 2;
+		gbc_txtNombre.gridy = 1;
 		panel.add(txtNombre, gbc_txtNombre);
 		txtNombre.setColumns(10);
 		
@@ -102,16 +104,17 @@ public class ProfesorDesktop extends JFrame {
 		GridBagConstraints gbc_lblUsuario = new GridBagConstraints();
 		gbc_lblUsuario.anchor = GridBagConstraints.EAST;
 		gbc_lblUsuario.insets = new Insets(0, 0, 5, 5);
-		gbc_lblUsuario.gridx = 2;
-		gbc_lblUsuario.gridy = 2;
+		gbc_lblUsuario.gridx = 3;
+		gbc_lblUsuario.gridy = 1;
 		panel.add(lblUsuario, gbc_lblUsuario);
 		
 		txtUsuario = new JTextField();
 		GridBagConstraints gbc_txtUsuario = new GridBagConstraints();
-		gbc_txtUsuario.insets = new Insets(0, 0, 5, 5);
+		gbc_txtUsuario.gridwidth = 2;
+		gbc_txtUsuario.insets = new Insets(0, 0, 5, 0);
 		gbc_txtUsuario.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtUsuario.gridx = 3;
-		gbc_txtUsuario.gridy = 2;
+		gbc_txtUsuario.gridx = 4;
+		gbc_txtUsuario.gridy = 1;
 		panel.add(txtUsuario, gbc_txtUsuario);
 		txtUsuario.setColumns(10);
 		
@@ -125,7 +128,7 @@ public class ProfesorDesktop extends JFrame {
 		
 		txtApellido = new JTextField();
 		GridBagConstraints gbc_txtApellido = new GridBagConstraints();
-		gbc_txtApellido.anchor = GridBagConstraints.NORTH;
+		gbc_txtApellido.gridwidth = 2;
 		gbc_txtApellido.insets = new Insets(0, 0, 5, 5);
 		gbc_txtApellido.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtApellido.gridx = 1;
@@ -137,33 +140,35 @@ public class ProfesorDesktop extends JFrame {
 		GridBagConstraints gbc_lblClave = new GridBagConstraints();
 		gbc_lblClave.anchor = GridBagConstraints.EAST;
 		gbc_lblClave.insets = new Insets(0, 0, 5, 5);
-		gbc_lblClave.gridx = 2;
+		gbc_lblClave.gridx = 3;
 		gbc_lblClave.gridy = 3;
 		panel.add(lblClave, gbc_lblClave);
 		
 		txtClave = new JPasswordField();
 		GridBagConstraints gbc_txtClave = new GridBagConstraints();
-		gbc_txtClave.insets = new Insets(0, 0, 5, 5);
+		gbc_txtClave.gridwidth = 2;
+		gbc_txtClave.insets = new Insets(0, 0, 5, 0);
 		gbc_txtClave.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtClave.gridx = 3;
+		gbc_txtClave.gridx = 4;
 		gbc_txtClave.gridy = 3;
 		panel.add(txtClave, gbc_txtClave);
 		txtClave.setColumns(10);
 		
-		lblFechaDeNacimiento = new JLabel("Fecha de Nacimiento:");
+		lblFechaDeNacimiento = new JLabel("Fecha de Nac.:");
 		GridBagConstraints gbc_lblFechaDeNacimiento = new GridBagConstraints();
 		gbc_lblFechaDeNacimiento.anchor = GridBagConstraints.EAST;
 		gbc_lblFechaDeNacimiento.insets = new Insets(0, 0, 5, 5);
 		gbc_lblFechaDeNacimiento.gridx = 0;
-		gbc_lblFechaDeNacimiento.gridy = 4;
+		gbc_lblFechaDeNacimiento.gridy = 5;
 		panel.add(lblFechaDeNacimiento, gbc_lblFechaDeNacimiento);
 		
 		txtFecha_Nac = new JTextField();
 		GridBagConstraints gbc_txtFecha_Nac = new GridBagConstraints();
+		gbc_txtFecha_Nac.gridwidth = 2;
 		gbc_txtFecha_Nac.insets = new Insets(0, 0, 5, 5);
 		gbc_txtFecha_Nac.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtFecha_Nac.gridx = 1;
-		gbc_txtFecha_Nac.gridy = 4;
+		gbc_txtFecha_Nac.gridy = 5;
 		panel.add(txtFecha_Nac, gbc_txtFecha_Nac);
 		txtFecha_Nac.setColumns(10);
 		
@@ -178,22 +183,22 @@ public class ProfesorDesktop extends JFrame {
 		GridBagConstraints gbc_lblRepetirClave = new GridBagConstraints();
 		gbc_lblRepetirClave.anchor = GridBagConstraints.EAST;
 		gbc_lblRepetirClave.insets = new Insets(0, 0, 5, 5);
-		gbc_lblRepetirClave.gridx = 2;
-		gbc_lblRepetirClave.gridy = 4;
+		gbc_lblRepetirClave.gridx = 3;
+		gbc_lblRepetirClave.gridy = 5;
 		panel.add(lblRepetirClave, gbc_lblRepetirClave);
 		
 		txtRepetirClave = new JPasswordField();
 		GridBagConstraints gbc_txtRepetirClave = new GridBagConstraints();
-		gbc_txtRepetirClave.anchor = GridBagConstraints.NORTH;
-		gbc_txtRepetirClave.insets = new Insets(0, 0, 5, 5);
+		gbc_txtRepetirClave.gridwidth = 2;
+		gbc_txtRepetirClave.insets = new Insets(0, 0, 5, 0);
 		gbc_txtRepetirClave.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtRepetirClave.gridx = 3;
-		gbc_txtRepetirClave.gridy = 4;
+		gbc_txtRepetirClave.gridx = 4;
+		gbc_txtRepetirClave.gridy = 5;
 		panel.add(txtRepetirClave, gbc_txtRepetirClave);
 		txtRepetirClave.setColumns(10);
 		
 		GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
-		gbc_btnCancelar.insets = new Insets(0, 0, 5, 5);
+		gbc_btnCancelar.insets = new Insets(0, 0, 0, 5);
 		gbc_btnCancelar.gridx = 4;
 		gbc_btnCancelar.gridy = 6;
 		panel.add(btnCancelar, gbc_btnCancelar);
@@ -222,7 +227,6 @@ public class ProfesorDesktop extends JFrame {
 	
 		});
 		GridBagConstraints gbc_btnAgregar = new GridBagConstraints();
-		gbc_btnAgregar.insets = new Insets(0, 0, 5, 0);
 		gbc_btnAgregar.gridx = 5;
 		gbc_btnAgregar.gridy = 6;
 		panel.add(btnAgregar, gbc_btnAgregar);

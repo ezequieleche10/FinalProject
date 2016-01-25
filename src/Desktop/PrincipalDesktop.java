@@ -55,12 +55,13 @@ public class PrincipalDesktop extends JFrame {
 
 	 
 	public PrincipalDesktop(Controlador contr,Usuario usua) throws Exception {
+		setResizable(false);
 		usu=usua;
 		cont=contr;
 		opc=eleccionMenu.VACIO;
 		setTitle("Bienvenidos Instituto Olga Cossettini");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 800, 650);
 		
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -113,6 +114,7 @@ public class PrincipalDesktop extends JFrame {
 		
 
 		JPanel panelNulo= new JPanel();
+		panelNulo.setToolTipText("");
 		panelPpal.add(panelNulo,"Panel nulo");
 		
 		
@@ -161,7 +163,7 @@ public class PrincipalDesktop extends JFrame {
 		});
 		mnExamenes.add(mnuGenerarExamen);
 		
-		mnuCargarAlumnos = new JMenuItem("Cargar Alumnos");
+		mnuCargarAlumnos = new JMenuItem("Carga SIGAE");
 		mnuCargarAlumnos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				PanelCargaAlumnos panelTA= new PanelCargaAlumnos(cont, panelPpal);
@@ -225,6 +227,12 @@ public class PrincipalDesktop extends JFrame {
 		});
 		mnArchivo.add(mntmVerNotas);
 		mnArchivo.add(mnuCerrar);
+		menuBar.add( Box.createHorizontalStrut( 10 ) );
+		JMenu mnCursos = new JMenu("Cursos");
+		menuBar.add(mnCursos);
+		menuBar.add( Box.createHorizontalStrut( 10 ) );
+		JMenu mntmCooperadora = new JMenu("Cooperadora");
+		menuBar.add(mntmCooperadora);
 		
 		validarUsuario();
 	}

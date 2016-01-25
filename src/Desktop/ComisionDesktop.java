@@ -71,15 +71,16 @@ public class ComisionDesktop extends JFrame {
 	 * Create the frame.
 	 */
 	public ComisionDesktop(Controlador cont, int cod_examen, JLabel estadoComision) {
+		setEnabled(false);
 		contr = cont;
 		lp= new ArrayList<Profesor>();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 600, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{67, 85, 58, 0, 0, 0, 0, 0};
+		gbl_contentPane.columnWidths = new int[]{67, 119, 58, 0, 0, 0, 0, 0};
 		gbl_contentPane.rowHeights = new int[]{0, 0, 48, 0, 0, 0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 1.0, 1.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
@@ -131,35 +132,17 @@ public class ComisionDesktop extends JFrame {
 		gbc_panel.gridy = 2;
 		contentPane.add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_panel.columnWidths = new int[]{0, 58, 0, 0, 0, 0, 0, 0, 0};
 		gbl_panel.rowHeights = new int[]{0, 0};
 		gbl_panel.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_panel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
-		
-		JLabel lblProfesor = new JLabel("Profesor");
-		GridBagConstraints gbc_lblProfesor = new GridBagConstraints();
-		gbc_lblProfesor.anchor = GridBagConstraints.EAST;
-		gbc_lblProfesor.insets = new Insets(0, 0, 0, 5);
-		gbc_lblProfesor.gridx = 1;
-		gbc_lblProfesor.gridy = 0;
-		panel.add(lblProfesor, gbc_lblProfesor);
-		
-		cboProfesores = new JComboBox<Object>();
-		cboProfesores.setModel(new DefaultComboBoxModel(new String[] {"Seleccione un profesor"}));
-		GridBagConstraints gbc_cboProfesores = new GridBagConstraints();
-		gbc_cboProfesores.gridwidth = 2;
-		gbc_cboProfesores.insets = new Insets(0, 0, 0, 5);
-		gbc_cboProfesores.fill = GridBagConstraints.HORIZONTAL;
-		gbc_cboProfesores.gridx = 2;
-		gbc_cboProfesores.gridy = 0;
 		try{
 			cargarCombo();
 			}catch(Exception e ){
 				JOptionPane.showMessageDialog(null, "Error al cargar combo, conecte a la base de datos y vuelva a iniciar el programa");
 				//frame.dispose()
 			}
-		panel.add(cboProfesores, gbc_cboProfesores);
 		JScrollPane scrollPane_1 = new JScrollPane();
 		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
 		gbc_scrollPane_1.gridheight = 3;
@@ -198,9 +181,27 @@ public class ComisionDesktop extends JFrame {
 				}else JOptionPane.showMessageDialog(null, "No ha seleccionado ningun elemento");
 			}
 		});
+		
+		JLabel lblProfesor = new JLabel("Profesor");
+		GridBagConstraints gbc_lblProfesor = new GridBagConstraints();
+		gbc_lblProfesor.anchor = GridBagConstraints.WEST;
+		gbc_lblProfesor.insets = new Insets(0, 0, 0, 5);
+		gbc_lblProfesor.gridx = 1;
+		gbc_lblProfesor.gridy = 0;
+		panel.add(lblProfesor, gbc_lblProfesor);
+		
+		cboProfesores = new JComboBox<Object>();
+		cboProfesores.setModel(new DefaultComboBoxModel(new String[] {"Seleccione un profesor"}));
+		GridBagConstraints gbc_cboProfesores = new GridBagConstraints();
+		gbc_cboProfesores.gridwidth = 3;
+		gbc_cboProfesores.insets = new Insets(0, 0, 0, 5);
+		gbc_cboProfesores.fill = GridBagConstraints.HORIZONTAL;
+		gbc_cboProfesores.gridx = 2;
+		gbc_cboProfesores.gridy = 0;
+		panel.add(cboProfesores, gbc_cboProfesores);
 		GridBagConstraints gbc_btnAgregar = new GridBagConstraints();
 		gbc_btnAgregar.insets = new Insets(0, 0, 0, 5);
-		gbc_btnAgregar.gridx = 4;
+		gbc_btnAgregar.gridx = 6;
 		gbc_btnAgregar.gridy = 0;
 		panel.add(btnAgregar, gbc_btnAgregar);
 		
