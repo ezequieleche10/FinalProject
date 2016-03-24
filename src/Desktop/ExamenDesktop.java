@@ -164,7 +164,7 @@ public class ExamenDesktop extends JFrame {
 						dispose();
 						break;
 					case 1:
-						JOptionPane.showMessageDialog(null, "Ya existe un examen con dichos datos");
+						JOptionPane.showMessageDialog(null, "Ya existe un examen con dichos datos.");
 						break;
 					case 2:
 						JOptionPane.showMessageDialog(null, "No existe el examen anterior creado.");

@@ -104,7 +104,7 @@ public class CatalogodeExamenes extends DBConexion_1{
         		
         		}
             this.Desconectar();
-            JOptionPane.showMessageDialog(null, "Se agrego el examen correctamente");
+            JOptionPane.showMessageDialog(null, "Se agregó el examen correctamente.");
         }
         catch (Exception ex)
         {
@@ -140,6 +140,22 @@ public class CatalogodeExamenes extends DBConexion_1{
         }
     }
      
+     public boolean existeExamen(String tipo_examen, int anio) throws Exception
+     {
+    	 	 this.Conectar();
+             String consult = "SELECT * FROM examen WHERE tipo_examen = ? AND anio=?";
+             PreparedStatement consulta= Cone.prepareStatement(consult);
+             consulta.setString(1, tipo_examen);
+             consulta.setInt(2, anio);
+             resu = consulta.executeQuery();
+             boolean rta = false;
+             if (resu.next())
+             {
+            	 rta = true;
+             }
+             return rta;
+     }
+     
       public Examen buscaExamen(int cod_examen) throws Exception
     {
         try 
@@ -159,7 +175,7 @@ public class CatalogodeExamenes extends DBConexion_1{
         }
         catch (Exception ex)
         {
-            System.err.println("SQLException: " + ex.getMessage());
+        	System.err.println("Aver que dice esto" );
             return null;            
         }
     }

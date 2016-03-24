@@ -47,10 +47,7 @@ public class PanelCargaAlumnos extends JPanel {
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 	
-	/*
-		
-		
-		*/
+
 		
 		JLabel lblRuta = new JLabel("Ruta:");
 		GridBagConstraints gbc_lblRuta = new GridBagConstraints();
@@ -133,10 +130,11 @@ public class PanelCargaAlumnos extends JPanel {
 		btnAgregarAlumnos = new JButton("Agregar alumnos");
 		btnAgregarAlumnos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+			String mensaje;
 			TableModel tm=	table.getModel();
 			int cols = tm.getColumnCount(); 
 			int filas = tm.getRowCount();
-			ArrayList<Alumno> alums= new ArrayList<Alumno>();
+			ArrayList<Alumno> alums = new ArrayList<Alumno>();
 			for(int i=0; i<filas; i++) { 
 				Alumno alum = new Alumno();
 			for(int j=0; j<cols; j++){ 
@@ -145,33 +143,44 @@ public class PanelCargaAlumnos extends JPanel {
 			case 1: alum.setApellido(tm.getValueAt(i,j).toString());break;
 			case 2: alum.setNombre(tm.getValueAt(i,j).toString()); break;
 			case 3: alum.setMail(tm.getValueAt(i,j).toString()); break;
-			case 4:alum.setIngreso_directo(tm.getValueAt(i,j).toString());break;
+			case 4: alum.setIngreso_directo(tm.getValueAt(i,j).toString());break;
 			case 5: alum.setTurno_eleccion(tm.getValueAt(i,j).toString());break;
 			case 6: alum.setNombre_Carrera(tm.getValueAt(i, j).toString());break;
 				}
-				
 			}
 			alums.add(alum);
 			}
 			try {
-				
-				int carga = cont.agregarAlumnos(alums);
-				String mensaje;
-				if (carga == 1)
+				if(validarDatos(alums))
 				{
-					mensaje = "Los alumnos se agregaron satisfactoriamente!";
+					if (validarDni(alums))
+					{
+						int carga = cont.agregarAlumnos(alums);
+						if (carga == 1)
+						{
+							mensaje = "Los alumnos se agregaron satisfactoriamente!";
+						}
+						if (carga == 2)
+						{
+							mensaje = "Alguno de los alumnos que intenta cargar ya se encuentra registrado!";
+						}
+						else
+						{
+							mensaje = "Hubo un problema en la carga de alumnos!";
+						}
+						JOptionPane.showMessageDialog(null, mensaje);
+		       			removeAll();
+		       			repaint();
+					}
+					else
+					{
+						JOptionPane.showMessageDialog(null, "Alguno de los DNI ingresados está no posee la longitud adecuada (8 numeros)");
+					}
 				}
 				else
 				{
-					mensaje = "Hubo un problema en la carga de alumnos!";
+					JOptionPane.showMessageDialog(null, "Alguno de los campos ingresados está incompleto");
 				}
-				JOptionPane.showMessageDialog(null, mensaje);
-       			removeAll();
-       			repaint();
-       			
-				
-				
-			  
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -210,5 +219,42 @@ public class PanelCargaAlumnos extends JPanel {
 		table.setModel(modelo);
 		btnAgregarAlumnos.setEnabled(true);
 	}
+	
+	public boolean validarDatos(ArrayList<Alumno> alumnos){
+		boolean rta = true;
+		for (int i =0; i<alumnos.size(); i++)
+        {
+            int dni = alumnos.get(i).getDni();
+            String nombre = alumnos.get(i).getNombre();
+            String apellido = alumnos.get(i).getApellido();
+            String mail = alumnos.get(i).getMail();
+            String ingDire = alumnos.get(i).getIngreso_directo();
+            String turnElec = alumnos.get(i).getTurno_eleccion();
+            String carrera = alumnos.get(i).getNombre_Carrera();
+            String stringDni =  String.valueOf(dni);
+            //definir datos obligatorios
+            if (stringDni.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || mail.isEmpty() || ingDire.isEmpty() || turnElec.isEmpty() || carrera.isEmpty())
+            {
+            	rta = false;
+            }
+        }
+		return rta;
+	}
+	
+	public boolean validarDni(ArrayList<Alumno> alumnos)
+	{
+		boolean rta = true;
+		for (int i=0; i<alumnos.size(); i++)
+		{
+			int dni = alumnos.get(i).getDni();
+			String stringDni = String.valueOf(dni);
+			if (stringDni.length() != 8)
+			{
+				rta = false;
+			}
+		}
+		return rta;
+	}
+	
 
 }

@@ -33,7 +33,7 @@ public class CatalogodeProfesores  extends DBConexion_1 {
                 insert.executeUpdate();
                }
             
-            JOptionPane.showMessageDialog(null, "Comisión creada satisfactoriamente!!!");
+            JOptionPane.showMessageDialog(null, "Comisión creada satisfactoriamente.");
             this.Desconectar(); 
         	
         	
@@ -81,33 +81,48 @@ public class CatalogodeProfesores  extends DBConexion_1 {
      {
          try 
          {	 this.Conectar();
-             String insert="INSERT INTO profesor(nombre,apellido,fecha_Nac) VALUES(?,?,?)";
-             PreparedStatement ins= Cone.prepareStatement(insert);
-             ins.setString(1, nombre);
-             ins.setString(2, apellido);
-             ins.setString(3,fec_Nac);
-             ins.executeUpdate();
-             
-             String sqlc="SELECT max(cod_profesor) as cod FROM profesor";
-         	 PreparedStatement consult= Cone.prepareStatement(sqlc);
-         	 resu=consult.executeQuery();
-         	 resu.first();
-         	 int codi= resu.getInt("cod");
-             
-             String insert2= "INSERT INTO usuario(nombre_usuario, clave, tipo_usuario, codigo_profesor) VALUES (?,?,?,?)";
-             PreparedStatement inse = Cone.prepareStatement(insert2);
-             inse.setString(1, u.getNombre_usuario());
-             inse.setString(2, u.getClave());
-             inse.setInt(3, u.getTipo_Usuario());
-             inse.setInt(4, codi);
-             inse.executeUpdate();
-             JOptionPane.showMessageDialog(null,"Se agregó correctamente");
-             this.Desconectar();
+	          
+         	 String consulta="SELECT COUNT(*) as cantidad FROM usuario u WHERE u.nombre_usuario=?";
+			 PreparedStatement cons= Cone.prepareStatement(consulta);
+			 cons.setString(1, u.getNombre_usuario());
+			 resu=cons.executeQuery();
+			 resu.first();
+			 int canti = resu.getInt("cantidad");
+			 
+			 if (canti==0)
+			 {
+	             String insert="INSERT INTO profesor(nombre,apellido,fecha_Nac) VALUES(?,?,?)";
+	             PreparedStatement ins= Cone.prepareStatement(insert);
+	             ins.setString(1, nombre);
+	             ins.setString(2, apellido);
+	             ins.setString(3,fec_Nac);
+	             ins.executeUpdate();
+	             
+	             String sqlc="SELECT max(cod_profesor) as cod FROM profesor";
+	         	 PreparedStatement consult= Cone.prepareStatement(sqlc);
+	         	 resu=consult.executeQuery();
+	         	 resu.first();
+	         	 int codi= resu.getInt("cod");
+	             
+	             String insert2= "INSERT INTO usuario(nombre_usuario, clave, tipo_usuario, codigo_profesor) VALUES (?,?,?,?)";
+	             PreparedStatement inse = Cone.prepareStatement(insert2);
+	             inse.setString(1, u.getNombre_usuario());
+	             inse.setString(2, u.getClave());
+	             inse.setInt(3, u.getTipo_Usuario());
+	             inse.setInt(4, codi);
+	             inse.executeUpdate();
+	             JOptionPane.showMessageDialog(null,"Se agregó el profesor correctamente.");
+	             this.Desconectar();
+			 }
+			 else
+			 {
+				 JOptionPane.showMessageDialog(null, "Ya existe un profesor con dicho usuario.");
+			 }
          }
          catch (Exception ex)
          {
              System.err.println("SQLException: " + ex.getMessage()); 
-             JOptionPane.showMessageDialog(null, "Ya existe un profesor con dicho usuario!");
+             JOptionPane.showMessageDialog(null, ex.getMessage());
          }
          
          

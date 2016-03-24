@@ -74,10 +74,10 @@ public class ProfesorDesktop extends JFrame {
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Datos del profesor", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{98, 79, 88, 87, 90, 81, 0};
-		gbl_panel.rowHeights = new int[]{0, 14, 24, 0, 23, 0, 0, 0};
-		gbl_panel.columnWeights = new double[]{0.1, 0.0, 0.1, 1.0, 0.3, 0.3, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.0, Double.MIN_VALUE};
+		gbl_panel.columnWidths = new int[]{80, 80, 80, 30, 80, 80, 80, 0};
+		gbl_panel.rowHeights = new int[]{0, 14, 5, 14, 5, 14, 5, 14, 5};
+		gbl_panel.columnWeights = new double[]{0.1, 0.0, 0.1, 0.0, 1.0, 0.3, 0.3, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		contentPane.add(panel);
 		
@@ -104,7 +104,7 @@ public class ProfesorDesktop extends JFrame {
 		GridBagConstraints gbc_lblUsuario = new GridBagConstraints();
 		gbc_lblUsuario.anchor = GridBagConstraints.EAST;
 		gbc_lblUsuario.insets = new Insets(0, 0, 5, 5);
-		gbc_lblUsuario.gridx = 3;
+		gbc_lblUsuario.gridx = 4;
 		gbc_lblUsuario.gridy = 1;
 		panel.add(lblUsuario, gbc_lblUsuario);
 		
@@ -113,7 +113,7 @@ public class ProfesorDesktop extends JFrame {
 		gbc_txtUsuario.gridwidth = 2;
 		gbc_txtUsuario.insets = new Insets(0, 0, 5, 0);
 		gbc_txtUsuario.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtUsuario.gridx = 4;
+		gbc_txtUsuario.gridx = 5;
 		gbc_txtUsuario.gridy = 1;
 		panel.add(txtUsuario, gbc_txtUsuario);
 		txtUsuario.setColumns(10);
@@ -140,7 +140,7 @@ public class ProfesorDesktop extends JFrame {
 		GridBagConstraints gbc_lblClave = new GridBagConstraints();
 		gbc_lblClave.anchor = GridBagConstraints.EAST;
 		gbc_lblClave.insets = new Insets(0, 0, 5, 5);
-		gbc_lblClave.gridx = 3;
+		gbc_lblClave.gridx = 4;
 		gbc_lblClave.gridy = 3;
 		panel.add(lblClave, gbc_lblClave);
 		
@@ -149,7 +149,7 @@ public class ProfesorDesktop extends JFrame {
 		gbc_txtClave.gridwidth = 2;
 		gbc_txtClave.insets = new Insets(0, 0, 5, 0);
 		gbc_txtClave.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtClave.gridx = 4;
+		gbc_txtClave.gridx = 5;
 		gbc_txtClave.gridy = 3;
 		panel.add(txtClave, gbc_txtClave);
 		txtClave.setColumns(10);
@@ -183,7 +183,7 @@ public class ProfesorDesktop extends JFrame {
 		GridBagConstraints gbc_lblRepetirClave = new GridBagConstraints();
 		gbc_lblRepetirClave.anchor = GridBagConstraints.EAST;
 		gbc_lblRepetirClave.insets = new Insets(0, 0, 5, 5);
-		gbc_lblRepetirClave.gridx = 3;
+		gbc_lblRepetirClave.gridx = 4;
 		gbc_lblRepetirClave.gridy = 5;
 		panel.add(lblRepetirClave, gbc_lblRepetirClave);
 		
@@ -192,15 +192,15 @@ public class ProfesorDesktop extends JFrame {
 		gbc_txtRepetirClave.gridwidth = 2;
 		gbc_txtRepetirClave.insets = new Insets(0, 0, 5, 0);
 		gbc_txtRepetirClave.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtRepetirClave.gridx = 4;
+		gbc_txtRepetirClave.gridx = 5;
 		gbc_txtRepetirClave.gridy = 5;
 		panel.add(txtRepetirClave, gbc_txtRepetirClave);
 		txtRepetirClave.setColumns(10);
 		
 		GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
 		gbc_btnCancelar.insets = new Insets(0, 0, 0, 5);
-		gbc_btnCancelar.gridx = 4;
-		gbc_btnCancelar.gridy = 6;
+		gbc_btnCancelar.gridx = 5;
+		gbc_btnCancelar.gridy = 7;
 		panel.add(btnCancelar, gbc_btnCancelar);
 		
 		JButton btnAgregar = new JButton("Agregar");
@@ -221,14 +221,14 @@ public class ProfesorDesktop extends JFrame {
 							}
 					}
 					else
-						JOptionPane.showMessageDialog(null, "Las claves ingresadas no son correctas");
+						JOptionPane.showMessageDialog(null, "Las claves ingresadas no son correctas.");
 				}
 			}
 	
 		});
 		GridBagConstraints gbc_btnAgregar = new GridBagConstraints();
-		gbc_btnAgregar.gridx = 5;
-		gbc_btnAgregar.gridy = 6;
+		gbc_btnAgregar.gridx = 6;
+		gbc_btnAgregar.gridy = 7;
 		panel.add(btnAgregar, gbc_btnAgregar);
 		
 		
@@ -236,6 +236,12 @@ public class ProfesorDesktop extends JFrame {
 	}
 	public boolean validar()
 	{
+		lblNombre.setForeground(Color.BLACK);
+		lblApellido.setForeground(Color.BLACK);
+		lblFechaDeNacimiento.setForeground(Color.BLACK);
+		lblUsuario.setForeground(Color.BLACK);
+		lblClave.setForeground(Color.BLACK);
+		lblRepetirClave.setForeground(Color.BLACK);
 		boolean e = true;
 		if (txtNombre.getText().toString().equals(""))
 				//mensaje+="Debe cargar ejercicios \n";

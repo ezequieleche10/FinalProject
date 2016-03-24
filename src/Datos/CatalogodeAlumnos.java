@@ -11,6 +11,7 @@ import Entidades.NotaExamenAlumno;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -65,6 +66,23 @@ public class CatalogodeAlumnos extends DBConexion_1{
 	  }
 		else return "Profesorado de ingles";
 	}
+    
+    public int validarDni(ArrayList<Alumno> alumnos) throws SQLException
+    {
+    	int resp = 0;
+    	this.Conectar();
+	    for (int i=0; i<alumnos.size(); i++)
+	    {
+	    PreparedStatement consulta= Cone.prepareStatement("SELECT * FROM alumno WHERE dni=?");
+		consulta.setInt(1, alumnos.get(i).getDni());
+		resu = consulta.executeQuery();
+		if (resu.next())
+		{
+			resp = 1;
+		}
+	    }
+	    return resp;
+    }
 
 	public int agregarAlumnos(ArrayList<Alumno> alumnos) throws Exception
     {
@@ -73,40 +91,45 @@ public class CatalogodeAlumnos extends DBConexion_1{
         	this.Conectar();
             String insert="INSERT INTO alumno(dni, nombre, apellido, mail, ingreso_directo, turno_eleccion, cod_carrera) "+" VALUES(?,?,?,?,?,?,?)";
             PreparedStatement ins= Cone.prepareStatement(insert);
-            for (int i =0; i<alumnos.size(); i++)
+            int validarDni = validarDni(alumnos);
+            if (validarDni == 0)
             {
-            int dni = alumnos.get(i).getDni();
-            String nombre = alumnos.get(i).getNombre();
-            String apellido = alumnos.get(i).getApellido();
-            String mail = alumnos.get(i).getMail();
-            String ingDire = alumnos.get(i).getIngreso_directo();
-            String turnElec = alumnos.get(i).getTurno_eleccion();
-            int cod_carrera= getCodigoCarrera(alumnos.get(i).getNombre_Carrera());
-           
-            ins.setInt(1,dni);
-            ins.setString(2,nombre);
-            ins.setString(3,apellido);
-            ins.setString(4,mail);
-            ins.setString(5,ingDire);
-            ins.setString(6,turnElec);
-            ins.setInt(7,cod_carrera);
-            ins.executeUpdate();
-            PreparedStatement ins2= Cone.prepareStatement("INSERT INTO alumno_en_carrera(cod_carrera,dni)VALUES(?,?)");
-            ins2.setInt(1,cod_carrera);
-            ins2.setInt(2, dni);
-            ins2.executeUpdate();
-            
-            
-             }
-         
-            this.Desconectar();
-            return 1;
+	            for (int i =0; i<alumnos.size(); i++)
+	            {
+		            int dni = alumnos.get(i).getDni();
+		            String nombre = alumnos.get(i).getNombre();
+		            String apellido = alumnos.get(i).getApellido();
+		            String mail = alumnos.get(i).getMail();
+		            String ingDire = alumnos.get(i).getIngreso_directo();
+		            String turnElec = alumnos.get(i).getTurno_eleccion();
+		            int cod_carrera= getCodigoCarrera(alumnos.get(i).getNombre_Carrera());
+		           
+		            ins.setInt(1,dni);
+		            ins.setString(2,nombre);
+		            ins.setString(3,apellido);
+		            ins.setString(4,mail);
+		            ins.setString(5,ingDire);
+		            ins.setString(6,turnElec);
+		            ins.setInt(7,cod_carrera);
+		            ins.executeUpdate();
+		            PreparedStatement ins2= Cone.prepareStatement("INSERT INTO alumno_en_carrera(cod_carrera,dni)VALUES(?,?)");
+		            ins2.setInt(1,cod_carrera);
+		            ins2.setInt(2, dni);
+		            ins2.executeUpdate();
+	            }
+	            this.Desconectar();
+	            return 1;
+            }
+            else
+            {
+            	return 2;
+            }
             
         }
         catch (Exception ex)
         {
             System.err.println("SQLException: " + ex.getMessage());
-            return 2;  
+            return 3;  
         }
        
     }

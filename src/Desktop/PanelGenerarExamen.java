@@ -319,6 +319,23 @@ public class PanelGenerarExamen extends JPanel {
        panel_1.setEnabled(false);
        panel_2.setEnabled(false);
        
+       JButton btnCancelar = new JButton("Cancelar");
+       btnCancelar.addActionListener(new ActionListener() {
+       	public void actionPerformed(ActionEvent e) {
+       		
+       		CardLayout cl = (CardLayout)(panelPpal.getLayout());
+       	      cl.show(panelPpal, "Panel nulo");
+       	}
+
+       	
+       });
+       GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
+       gbc_btnCancelar.anchor = GridBagConstraints.EAST;
+       gbc_btnCancelar.insets = new Insets(0, 0, 5, 5);
+       gbc_btnCancelar.gridx = 7;
+       gbc_btnCancelar.gridy = 7;
+       add(btnCancelar, gbc_btnCancelar);
+       
        btnGuardar = new JButton("Guardar");
        btnGuardar.addActionListener(new ActionListener() {
        	public void actionPerformed(ActionEvent e) {
@@ -350,28 +367,11 @@ public class PanelGenerarExamen extends JPanel {
        		
        	}
        });
-       
-       JButton btnCancelar = new JButton("Cancelar");
-       btnCancelar.addActionListener(new ActionListener() {
-       	public void actionPerformed(ActionEvent e) {
-       		
-       		CardLayout cl = (CardLayout)(panelPpal.getLayout());
-       	      cl.show(panelPpal, "Panel nulo");
-       	}
-
-       	
-       });
-       GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
-       gbc_btnCancelar.anchor = GridBagConstraints.EAST;
-       gbc_btnCancelar.insets = new Insets(0, 0, 0, 5);
-       gbc_btnCancelar.gridx = 7;
-       gbc_btnCancelar.gridy = 8;
-       add(btnCancelar, gbc_btnCancelar);
        GridBagConstraints gbc_btnGuardar = new GridBagConstraints();
-       gbc_btnGuardar.insets = new Insets(0, 0, 0, 5);
+       gbc_btnGuardar.insets = new Insets(0, 0, 5, 5);
        gbc_btnGuardar.anchor = GridBagConstraints.WEST;
        gbc_btnGuardar.gridx = 8;
-       gbc_btnGuardar.gridy = 8;
+       gbc_btnGuardar.gridy = 7;
        add(btnGuardar, gbc_btnGuardar);
 	}
 	

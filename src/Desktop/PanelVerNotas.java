@@ -92,40 +92,63 @@ public class PanelVerNotas extends JPanel {
 		gbc_spinAnio.gridy = 1;
 		add(spinAnio, gbc_spinAnio);
 		
+		JScrollPane scrollTabla = new JScrollPane();
+		scrollTabla.setEnabled(false);
+		//scrollTabla.setToolTipText("sadsd");
+		GridBagConstraints gbc_scrollTabla = new GridBagConstraints();
+		gbc_scrollTabla.gridwidth = 4;
+		gbc_scrollTabla.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollTabla.fill = GridBagConstraints.BOTH;
+		gbc_scrollTabla.gridx = 1;
+		gbc_scrollTabla.gridy = 4;
+		add(scrollTabla, gbc_scrollTabla);
+		
 		JButton btnBuscarExamen = new JButton("Buscar");
 		btnBuscarExamen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int anio= Integer.parseInt(spinAnio.getValue().toString());
 				if(cboTipoExamen.getSelectedIndex()!=0){
 					String tipoEx=cboTipoExamen.getSelectedItem().toString();
-					exa= new Examen();
-					exa=contr.buscarExamen(tipoEx, anio);
-					exa.setListaNotaExamenAlumno(contr.getNotasExamen(exa.getCod_examen()));
-					txtCod_examen.setText(String.valueOf(exa.getCod_examen()));
-					txtDescripcion.setText(String.valueOf(exa.getDescripcion()));
-					txtEstado.setText(String.valueOf(exa.getEstado()));
-					
 					try {
-						tablaAlumnosenCondiciones.setVisible(true);
-						cargarTabla(exa);
-						cboTipoExamen.setEnabled(false);
-						spinAnio.setEnabled(false);
-						
-						if (txtEstado.getText().equals("cerrado"))
+						if (contr.existeExamen(tipoEx, anio))
 						{
-							btnGenerarExamen.setEnabled(false);
+							exa= new Examen();
+							exa=contr.buscarExamen(tipoEx, anio);
+							exa.setListaNotaExamenAlumno(contr.getNotasExamen(exa.getCod_examen()));
+							txtCod_examen.setText(String.valueOf(exa.getCod_examen()));
+							txtDescripcion.setText(String.valueOf(exa.getDescripcion()));
+							txtEstado.setText(String.valueOf(exa.getEstado()));
+							try {
+								scrollTabla.setEnabled(true);
+								tablaAlumnosenCondiciones.setVisible(true);
+								cargarTabla(exa);
+								cboTipoExamen.setEnabled(false);
+								spinAnio.setEnabled(false);
+								if (txtEstado.getText().equals("cerrado"))
+								{
+									btnGenerarExamen.setEnabled(false);
+								}
+								else
+								{
+									btnGenerarExamen.setEnabled(true);
+								}
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
 						}
 						else
 						{
-							btnGenerarExamen.setEnabled(true);
+							JOptionPane.showMessageDialog(null, "No existe examen con dichos filtros. Pruebe nuevamente con nuevos filtros.");
 						}
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
+					
 					//nea=contr.getNotasExamen()
 				}else JOptionPane.showMessageDialog(null, "Seleccione tipo examen");
-			}
+				}
 		});
 		/*
 		
@@ -162,13 +185,15 @@ public class PanelVerNotas extends JPanel {
 		JButton btnLimpiar = new JButton("Limpiar");
 		btnLimpiar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				scrollTabla.setEnabled(false);
 				txtCod_examen.setText("");
 				txtEstado.setText("");
 				txtDescripcion.setText("");
-				tablaAlumnosenCondiciones.setVisible(false);
+				tablaAlumnosenCondiciones.setEnabled(false);
 				cboTipoExamen.setEnabled(true);
 				cboTipoExamen.setSelectedIndex(0);
 				spinAnio.setEnabled(true);
+				btnGenerarExamen.setEnabled(false);
 			}
 		});
 		GridBagConstraints gbc_btnLimpiar = new GridBagConstraints();
@@ -237,16 +262,6 @@ public class PanelVerNotas extends JPanel {
 		add(txtEstado, gbc_txtEstado);
 		txtEstado.setColumns(10);
 		
-		JScrollPane scrollTabla = new JScrollPane();
-		scrollTabla.setToolTipText("sadsd");
-		GridBagConstraints gbc_scrollTabla = new GridBagConstraints();
-		gbc_scrollTabla.gridwidth = 5;
-		gbc_scrollTabla.insets = new Insets(0, 0, 5, 5);
-		gbc_scrollTabla.fill = GridBagConstraints.BOTH;
-		gbc_scrollTabla.gridx = 0;
-		gbc_scrollTabla.gridy = 4;
-		add(scrollTabla, gbc_scrollTabla);
-		
 		tablaAlumnosenCondiciones = new JTable();
 		scrollTabla.setViewportView(tablaAlumnosenCondiciones);
 		
@@ -307,9 +322,6 @@ public void cargarTabla(Examen ex) throws Exception {
 	modelo1.setDatasource(ex.getListaNotaExamenAlumno());
 	tablaAlumnosenCondiciones.getTableHeader().setReorderingAllowed(false);
 	tablaAlumnosenCondiciones.setModel(modelo1);
-	
-	
 }
-
 
 }

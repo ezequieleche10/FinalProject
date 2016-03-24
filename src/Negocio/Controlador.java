@@ -303,6 +303,11 @@ public class Controlador {
 		}
 	}
 
+
+	public boolean existeExamen(String tipoEx, int anio) throws Exception {
+			return cde.existeExamen(tipoEx, anio);
+	}
+	
 	public Examen buscarExamen(String tipoEx, int anio) {
 		
 		try {
